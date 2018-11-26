@@ -30,7 +30,6 @@ public class SceneController : MonoBehaviour {
 	}
 	
 	void Update () {
-		
 		if (Input.GetMouseButtonDown(0)) {
 			Time.timeScale = .1f;
 		}

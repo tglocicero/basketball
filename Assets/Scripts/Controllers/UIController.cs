@@ -26,18 +26,16 @@ public class UIController : MonoBehaviour {
 		Messenger.RemoveListener (GameEvent.GOAL_SCORED, OnGoalScored);
 		Messenger.RemoveListener (GameEvent.SHOT_FIRED, OnShotFired);
 		Messenger.RemoveListener (GameEvent.AMMO_COLLECTED, OnAmmoCollected);
-		Messenger.AddListener (GameEvent.GAME_OVER, OnGameOver);
+		Messenger.RemoveListener (GameEvent.GAME_OVER, OnGameOver);
 	}
 
 	void Start() {
 		AddAmmo (1);
+		Time.timeScale = 1;
 		_restartButton.onClick.AddListener (RestartGame);
-		_gameOverScreen.SetActive (false);
+		_gameOverScreen.transform.localScale = new Vector3 (0,0,0);
 	}
-
-	void Update() {
-	}
-
+		
 	private void OnGoalScored() {
 		_score += 1;
 		scoreLabel.text = _score.ToString ();
@@ -83,8 +81,8 @@ public class UIController : MonoBehaviour {
 	}
 		
 	private void OnGameOver() {
-		_gameOverScreen.SetActive (true);
-		Debug.Log ("game over");
+		_gameOverScreen.transform.localScale = new Vector3 (1,1,1);
+		Time.timeScale = 0;
 	}
 
 	private void RestartGame() {
