@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour {
-	[SerializeField] private GameObject playerObject;
-	private PlayerCharacter player;
-	[SerializeField] private GameObject _hoop;
-	private float _hoopSide;
-	[SerializeField] private GameObject _ammoPickup;
-	[SerializeField] private Camera _mainCamera;
 
+	[SerializeField] private GameObject playerObject;
+	public PlayerCharacter player;
+
+	[SerializeField] public GameObject _hoop;
+	private float _hoopSide;
+
+	[SerializeField] private GameObject _ammoPickup;
+
+	[SerializeField] private Camera _mainCamera;
 
 	void Awake() {
 		Messenger.AddListener (GameEvent.GOAL_SCORED, OnGoalScored);

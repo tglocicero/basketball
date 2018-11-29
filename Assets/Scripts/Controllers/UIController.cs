@@ -12,8 +12,12 @@ public class UIController : MonoBehaviour {
 	[SerializeField] private Image empty3;
 	[SerializeField] private GameObject _gameOverScreen;
 	[SerializeField] private Button _restartButton;
-	private int _ammo;
+	[SerializeField] private GameObject	_player;
+	[SerializeField] private SceneController _sceneController;
+
+	public int _ammo;
 	private float _score;
+	private bool _checkGameOver;
 
 	void Awake() {
 		Messenger.AddListener (GameEvent.GOAL_SCORED, OnGoalScored);
@@ -34,6 +38,13 @@ public class UIController : MonoBehaviour {
 		Time.timeScale = 1;
 		_restartButton.onClick.AddListener (RestartGame);
 		_gameOverScreen.transform.localScale = new Vector3 (0,0,0);
+		_checkGameOver = false;
+	}
+
+	void Update() {
+		if (_checkGameOver && _player.transform.position.y < _sceneController._hoop.transform.position.y - 1) {
+			Messenger.Broadcast (GameEvent.GAME_OVER);
+		}
 	}
 		
 	private void OnGoalScored() {
@@ -44,14 +55,15 @@ public class UIController : MonoBehaviour {
 
 	private void AddAmmo(int amt) {
 		_ammo += amt;
+		_checkGameOver = false;
 
-		if (_ammo < 0) {
+		if (_ammo <= 0) {
 			_ammo = 0;
-			Messenger.Broadcast (GameEvent.GAME_OVER);
 		} else if (_ammo > 3) {
 			_ammo = 3;
 		}
 
+		// There's probably a better way to do this, but I'm leaving it like this for now
 		if (_ammo == 0) {
 			empty1.enabled = true;
 			empty2.enabled = true;
@@ -74,10 +86,21 @@ public class UIController : MonoBehaviour {
 
 	private void OnShotFired() {
 		AddAmmo(-1);
+		Debug.Log (_ammo);
+		if (_ammo == 0) {
+			StartCoroutine (StartGameOverClock ());
+		}
+	}
+
+	private IEnumerator StartGameOverClock() {
+		yield return new WaitForSeconds (1);
+		if (_ammo == 0) {
+			_checkGameOver = true;
+		}
 	}
 
 	private void OnAmmoCollected() {
-		AddAmmo (1);
+		AddAmmo (2);
 	}
 		
 	private void OnGameOver() {

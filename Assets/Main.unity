@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 1938268973}
+  player: {fileID: 0}
   _hoop: {fileID: 1361606149894244, guid: a0d6f9bd8ef10384db6dd5d1f12a9822, type: 2}
   _ammoPickup: {fileID: 1566391693641058, guid: 7a6472ddfca3b9b43be3941a22c70d5a,
     type: 2}
@@ -1086,6 +1087,9 @@ MonoBehaviour:
   empty3: {fileID: 1453033184}
   _gameOverScreen: {fileID: 1109286419}
   _restartButton: {fileID: 696853679}
+  _player: {fileID: 1938268973}
+  _sceneController: {fileID: 318427524}
+  _ammo: 0
 --- !u!4 &1399920972
 Transform:
   m_ObjectHideFlags: 0
@@ -1500,6 +1504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d46a8d94fb3bdc4da5d72647cd65c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _uiController: {fileID: 1399920971}
   mainCamera: {fileID: 1420492957}
   fireStrength: 400
   powerClamp: 700
