@@ -100,7 +100,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	private void OnAmmoCollected() {
-		AddAmmo (2);
+		AddAmmo (1);
 	}
 		
 	private void OnGameOver() {
